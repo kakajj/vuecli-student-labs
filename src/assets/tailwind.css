@@ -14,7 +14,9 @@
 .survey-container {
   @apply flex flex-col justify-start items-start p-1;
 }
-
+.card{
+  @apply border-solid border-gray-400 rounded-lg border-2 my-1 p-2;
+}
 .logo {
   @apply w-24 h-24;
 }
