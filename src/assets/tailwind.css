@@ -3,3 +3,23 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.my-p {
+    @apply text-lime-300 ;
+}
+.my-li {
+    @apply  text-rose-500 inline-block ;
+}
+.my-ul {
+    @apply text-rose-300  ;
+}
+.my-h1 {
+    @apply text-violet-500  text-2xl  ;
+}
+.my-h3 {
+    @apply  text-lightblue-300 m-4  text-xl;
+}
+
+.my-a {
+    @apply text-fucshia-300 ;
+}
