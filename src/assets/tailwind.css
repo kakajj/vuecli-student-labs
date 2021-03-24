@@ -23,3 +23,7 @@
 .my-a {
     @apply text-fucshia-300 ;
 }
+
+.myapp{
+    @apply text-center mt-14 font-sans;
+}
