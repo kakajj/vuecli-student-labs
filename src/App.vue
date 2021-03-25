@@ -10,9 +10,7 @@
         <div class="survey-container">
           <form @submit.prevent="submitForm">
             <base-card>
-              <h2 class="heading">
-                How was your Vue.js learning experience?
-              </h2>
+              <h2 class="heading">How was your Vue.js learning experience?</h2>
 
               <label class="label" for="name">Your Name</label>
 
@@ -70,10 +68,19 @@
               </p>
             </base-card>
 
-            <button class="btn">
-              Submit
-            </button>
+            <button class="btn">Submit</button>
           </form>
+        </div>
+        <div class="container">
+          <base-card>
+            <ul v-for="result in myJson" :key="result.id">
+              <li>
+                <span class="text-purple-600 italic">{{ result.name }}</span>
+                rated the learning experience
+                <span class="text-green-600 italic">{{ result.rating }}</span>
+              </li>
+            </ul>
+          </base-card>
         </div>
       </div>
     </div>
@@ -81,36 +88,46 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    HelloWorld,
   },
   data() {
     return {
-      enteredName: '',
+      myJson: [],
+      enteredName: "",
       rating: null,
       invalidNameInput: false,
-      invalidRatingInput: false
-    }
+      invalidRatingInput: false,
+    };
   },
   methods: {
+    async fetchSurveyResult() {
+      const res = await fetch("http://localhost:5000/surveyResults");
+      const data = await res.json();
+      return data;
+    },
     submitForm() {
-      this.invalidNameInput = this.enteredName === '' ? true : false
-      this.invalidRatingInput = this.rating === null ? true : false
+      this.invalidNameInput = this.enteredName === "" ? true : false;
+      this.invalidRatingInput = this.rating === null ? true : false;
 
-      console.log(`name value: ${this.enteredName}`)
-      console.log(`rating value: ${this.rating}`)
-      console.log(`invalid name: ${this.invalidNameInput}`)
-      console.log(`invalid rating: ${this.invalidRatingInput}`)
+      console.log(`name value: ${this.enteredName}`);
+      console.log(`rating value: ${this.rating}`);
+      console.log(`invalid name: ${this.invalidNameInput}`);
+      console.log(`invalid rating: ${this.invalidRatingInput}`);
     },
 
     validateName() {
-      this.invalidNameInput = this.enteredName === '' ? true : false
-      console.log(`name: ${this.invalidNameInput}`)
-    }
-  }
-}
+      this.invalidNameInput = this.enteredName === "" ? true : false;
+      console.log(`name: ${this.invalidNameInput}`);
+    },
+  },
+  async created() {
+    this.myJson = await this.fetchSurveyResult();
+    console.log(this.myJson);
+  },
+};
 </script>
